@@ -26,7 +26,3 @@ CMD pytest tests/hello_world.py
 
 FROM base as runtime
 CMD hello_world/python3 main.py
-
-
-
-
