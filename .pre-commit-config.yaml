@@ -1,0 +1,53 @@
+---
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.1.0 # Use the ref you want to point at
+    hooks:
+      - id: trailing-whitespace # Trims trailing whitespace
+      - id: end-of-file-fixer # Ensures that a file is either empty, or ends with one newline
+      - id: check-yaml # Checks YAML files for parseable syntax
+        exclude: .gitlab-ci.yml
+        args: [--unsafe]
+      - id: check-symlinks # Checks for symlinks which do not point to anything
+      - id: check-merge-conflict # Check for files that contain merge conflicts
+      - id: mixed-line-ending # Ensures consistent use of \n, \r, \r\n
+      - id: check-added-large-files # Prevent big files from being committed
+      - id: check-json
+  - repo: https://github.com/antonbabenko/pre-commit-terraform
+    rev: v1.84.0 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases
+    hooks:
+      - id: terraform_fmt
+  - repo: https://github.com/jumanjihouse/pre-commit-hook-yamlfmt
+    rev: 0.2.2
+    hooks:
+      - id: yamlfmt
+        args: [--mapping=2, --sequence=4, --offset=2, --width=4096]
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: [--profile=black]
+  - repo: https://github.com/psf/black
+    rev: 23.12.1
+    hooks:
+      - id: black
+  - repo: https://github.com/PyCQA/autoflake
+    rev: v2.0.0
+    hooks:
+      - id: autoflake
+  - repo: https://github.com/floatingpurr/sync_with_poetry
+    rev: 0.4.0
+    hooks:
+      - id: sync_with_poetry
+        args: [--all]
+  - repo: https://github.com/python-poetry/poetry
+    rev: 1.6.1
+    hooks:
+      - id: poetry-check
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.8.0
+    hooks:
+      - id: mypy
+        args: [--show-error-codes, --ignore-missing-imports, --pretty, --disallow-untyped-defs, --python-version=3.10, --explicit-package-bases]
+        additional_dependencies: [types-all]
